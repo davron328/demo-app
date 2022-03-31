@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content  %}
+<div class="container">
+    <div class="row">
+        <div class="col-10 mx-auto mt-4"></div>
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <h1 id="app"></h1>
+    </div>
+</div>
+<script src="{% static 'main_static.js' %}"></script>
+{% endblock %}
