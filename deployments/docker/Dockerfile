@@ -1,14 +1,13 @@
-FROM python:3.6-slim
-LABEL author="rahymov"
+FROM node:10.15-alpine
 
-RUN mkdir /code
-WORKDIR /code
-RUN pip install --upgrade pip
-COPY requirements.txt /code/
+# COPY all the files from Current Directory into the Container
+COPY . .
 
-RUN pip install -r requirements.txt
-COPY . /code/
+# Install the Project Dependencies like Express Framework
+RUN npm install
 
-EXPOSE 8000
+# Tell that this image is going to Open a Port 
+EXPOSE 3000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Default Command to launch the Application
+CMD ["npm", "start"]

@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: 8000
-      protocol: UDP
-      name: irdmi
+      targetPort: 3000
+      protocol: TCP
+      name: app-port
   selector:
     {{- include "demo-app.selectorLabels" . | nindent 4 }}

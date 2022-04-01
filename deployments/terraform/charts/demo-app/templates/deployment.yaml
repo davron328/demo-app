@@ -39,17 +39,17 @@ spec:
           - name: NAMESPACE
             value: {{ .Release.Namespace }}
           ports:
-            - name: irdmi
-              containerPort: 8000
-              protocol: UDP
+            - name: app-port
+              containerPort: 3000
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: 8000
+              port: 3000
           readinessProbe:
             httpGet:
               path: /
-              port: 8000
+              port: 3000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
