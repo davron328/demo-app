@@ -12,11 +12,11 @@ variable "deployment_environment" {
 variable "deployment_endpoint" {
     type = "map"
      default = {
-        test  = "test.hello"
-        dev  = "dev.hello"
-        qa   = "qa.hello"
-        prod = "hello"
-        stage = "stage.hello"
+        test  = "test.demo"
+        dev  = "dev.demo"
+        qa   = "qa.demo"
+        prod = "demo"
+        stage = "stage.demo"
   }
   description = "(Optional)- Application endpoint."
 }
