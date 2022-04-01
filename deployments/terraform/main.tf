@@ -6,7 +6,7 @@ module "academy-deploy" {
   version = "0.0.8"
 
   ## The helm release name 
-  deployment_name        = "hello-world"
+  deployment_name        = "demo-app"
 
   ## Deployment environment kubernetes namespace
   deployment_environment = "${var.deployment_environment}"
@@ -15,7 +15,7 @@ module "academy-deploy" {
   deployment_endpoint    = "${lookup(var.deployment_endpoint, "${var.deployment_environment}")}.${var.google_domain_name}"
 
   ## Deployment path which is local chart location 
-  deployment_path        = "hello-world"
+  deployment_path        = "demo-app"
 
   ## Custom vars if you would like to customize helm chart
   template_custom_vars  = {
