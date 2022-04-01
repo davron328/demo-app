@@ -5,10 +5,18 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: ${deployment_image}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+
+app:
+  ports: 3000
+
+globalEnvironments:
+  enbled: true
+  environments:
+    name: ENVIRONMENT
+    value: ${deployment_environment}
 
 imagePullSecrets: []
 nameOverride: ""
