@@ -5,23 +5,32 @@ metadata:
   labels:
     {{- include "demo-app.labels" . | nindent 4 }}
 spec:
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+{{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "demo-app.name" . }}
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- include "demo-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
       labels:
-        app.kubernetes.io/name: {{ include "demo-app.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- include "demo-app.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "demo-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -30,9 +39,9 @@ spec:
           - name: NAMESPACE
             value: {{ .Release.Namespace }}
           ports:
-            - name: http
+            - name: irdmi
               containerPort: 8000
-              protocol: TCP
+              protocol: UDP
           livenessProbe:
             httpGet:
               path: /

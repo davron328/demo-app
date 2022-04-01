@@ -9,8 +9,7 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 8000
-      protocol: TCP
-      name: http
+      protocol: UDP
+      name: irdmi
   selector:
-    app.kubernetes.io/name: {{ include "demo-app.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "demo-app.selectorLabels" . | nindent 4 }}
