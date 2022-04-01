@@ -48,7 +48,8 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: ${deployment_endpoint}
-      paths: []
+      paths:
+      - /
   tls:
   - secretName: demo-app-tls
     hosts:
