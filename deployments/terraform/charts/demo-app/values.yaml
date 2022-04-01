@@ -64,4 +64,9 @@ ingress:
   - secretName: hello-world-tls
     hosts:
       - ${deployment_endpoint}l
+      
+nodeSelector: {}
 
+tolerations: []
+
+affinity: {}
