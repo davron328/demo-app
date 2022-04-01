@@ -5,10 +5,17 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: ${deployment_image}
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+
+app:
+  ports: 3000
+
+globalEnvironments:
+  enbled: true
+  environments:
+    name: ENVIRONMENT
+    value: ${deployment_environment}
 
 imagePullSecrets: []
 nameOverride: ""
@@ -42,13 +49,16 @@ service:
 
 ingress:
   enabled: true
-  annotations: {}
+  annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: ${deployment_endpoint}
-      paths: []
+      paths:
+      - /
   tls:
   - secretName: demo-app-tls
     hosts:
